@@ -1,0 +1,91 @@
+<!-- (feat): Main court letter PDF template. -->
+{% extends "base.html" %}
+
+{% block title %}የክስ መግለጫ - በህግ አምላክ{% endblock %}
+
+{% block styles %}
+    .header { text-align: center; border-bottom: 3px solid #1a3c5e; padding-bottom: 20px; margin-bottom: 30px; }
+    .header h1 { font-size: 22px; margin: 5px 0; color: #1a3c5e; }
+    .parties { margin: 20px 0; padding: 15px; background: #f8f9fa; border-left: 5px solid #1a3c5e; }
+    .section-title { font-size: 16px; font-weight: bold; margin: 20px 0 10px 0; text-decoration: underline; }
+    .numbered { margin-left: 30px; }
+    .numbered p { margin: 8px 0; }
+    .disclaimer { margin-top: 40px; padding: 15px; background: #fff3cd; border-left: 5px solid #856404; font-size: 13px; color: #856404; }
+    .signature { margin-top: 40px; text-align: right; }
+    .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; text-align: center; color: #666; }
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>ለአዲስ አበባ/ፌዴራል ከፍተኛ ፍርድ ቤት</h1>
+    <h2 style="font-size:18px; margin:5px 0;">የፍትሐ ብሔር ችሎት</h2>
+    <h1 style="font-size:24px;">የክስ መግለጫ</h1>
+</div>
+
+<div class="parties">
+    <p><strong>ከሳሽ፦</strong> {{ plaintiff_name }}</p>
+    <p><strong>አድራሻ፦</strong> {{ plaintiff_address }}</p>
+    <p style="margin-top:10px;"><strong>ተከሳሽ፦</strong> {{ defendant_name }}</p>
+    <p><strong>አድራሻ፦</strong> {{ defendant_address }}</p>
+</div>
+
+<div>
+    <div class="section-title">፩. የሐቁ መግለጫ (Statement of Facts)</div>
+    <div class="numbered">
+        {% for fact in statement_of_facts %}
+        <p>{{ fact }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div>
+    <div class="section-title">፪. የሕግ መሠረት (Legal Grounds)</div>
+    <div class="numbered">
+        {% for law in legal_grounds %}
+        <p>{{ law }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div>
+    <div class="section-title">፫. የዳኝነት ጥያቄ (Relief Sought)</div>
+    <div class="numbered">
+        {% for relief in relief_sought %}
+        <p>{{ relief }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div>
+    <div class="section-title">፬. ቅድመ ሁኔታዎች (Pre-conditions)</div>
+    <div class="numbered">
+        {% for cond in pre_conditions %}
+        <p>{{ cond }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div>
+    <div class="section-title">፭. የማያያዣ ሰነዶች (Annexures)</div>
+    <div class="numbered">
+        {% for doc in annexures %}
+        <p>{{ doc }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="disclaimer">
+    <strong>ማስታወቂያ፦</strong> ይህ ሰነድ በ AI የተዘጋጀ ሲሆን ከማቅረብ በፊት በህጋዊ ጠበቃ መረጋገጥ አለበት።
+</div>
+
+<div class="signature">
+    <p><strong>የከሳሽ ስም፦</strong> {{ plaintiff_name }}</p>
+    <p><strong>ፊርማ፦</strong> ____________________</p>
+    <p><strong>ቀን፦</strong> {{ generated_date }}</p>
+</div>
+
+<div class="footer">
+    <p>ይህ ሰነድ በ{{ app_name }} AI የህግ ረዳት የተዘጋጀ ነው።</p>
+    <p>ሪፖርት መለያ ቁጥር፦ {{ report_id }}</p>
+</div>
+{% endblock %}
