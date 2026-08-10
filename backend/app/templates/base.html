@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="am">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}በህግ አምላክ{% endblock %}</title>
+    <style>
+      @font-face {
+          font-family: 'NotoEthiopic';
+          src: url('file://{{ font_path }}');
+      }
+      body {
+          font-family: 'NotoEthiopic', sans-serif;
+          padding: 40px;
+          font-size: 14px;
+          line-height: 1.8;
+      }
+    </style>
+    {% block styles %}{% endblock %}
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>
