@@ -7,6 +7,20 @@ template_dir = os.path.join(os.path.dirname(__file__), "..", "templates")
 env = Environment(loader=FileSystemLoader(template_dir))
 
 def create_pdf(report_data: dict, report_id: str, plaintiff: dict, defendant: dict) -> bytes:
+    """
+    Temporary PDF generator (weasyprint disabled).
+    Returns a simple text message as bytes.
+    """
+    message = f"""
+    PDF generation is temporarily disabled.
+    Please install weasyprint to enable PDF export.
+
+    Report ID: {report_id}
+    Plaintiff: {plaintiff.get('name', 'N/A')}
+    Defendant: {defendant.get('name', 'N/A')}
+    Generated at: {__import__('datetime').datetime.now()}
+    """
+    return message.encode('utf-8')
     template = env.get_template("court_letter.html")
     font_path = os.path.join(os.path.dirname(__file__), "..", "assets", "fonts", "NotoSansEthiopic.ttf")
     
