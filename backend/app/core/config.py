@@ -1,19 +1,22 @@
 import os
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    # Free LLM via Groq
-    groq_api_key: str = os.getenv("GROQ_API_KEY", "")
-    
-    # Free Embedding model from Hugging Face
-    embedding_model_name: str = "rasyosef/embedding-amharic-medium"
-    
-    # Databases
-    chroma_db_path: str = "./app/data/chroma_db"
-    postgres_database_url: str = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost:5432/behig_db")
-    redis_url: str = os.getenv("REDIS_URL", "redis://localhost:6379")
-    
-    class Config:
-        env_file = ".env"
+    # Required environment variables
+    groq_api_key: str
+    database_url: str   # <-- ADD THIS
 
+    # Optional with defaults
+    embedding_model_name: str = "rasyosef/embedding-amharic-medium"
+    chroma_db_path: str = "./app/data/chroma_db"
+    redis_url: str = "redis://localhost:6379"
+
+    # Configure Pydantic to read from .env and ignore extra fields
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"  # <-- KEY: prevents validation errors for unknown env vars
+    )
+
+# Create a single instance to import elsewhere
 settings = Settings()
